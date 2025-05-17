@@ -39,7 +39,7 @@ class NilaiController extends Controller
     if ($request->filled('sort_by') && $request->filled('sort_order')) {
         $query->orderBy($request->sort_by, $request->sort_order);
     } else {
-        $query->latest(); // default
+        $query->latest(); 
     }
 
     $nilai = $query->paginate(10)->appends($request->all());

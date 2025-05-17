@@ -17,8 +17,7 @@ class GuruSeeder extends Seeder
             'jenis_kelamin' => 'L',
             'tanggal_lahir' => '1980-05-12',
             'id_user' => 2,
-            'mata_pelajaran' => 1,
-            
+            'mata_pelajaran' => 1
         ]);
     }
 }

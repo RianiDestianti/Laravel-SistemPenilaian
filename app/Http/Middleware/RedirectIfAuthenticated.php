@@ -15,6 +15,7 @@ class RedirectIfAuthenticated
         if ($user) {
             switch ($user->role) {
                 case 'admin':
+                    
                     return redirect('/dashboard/admin');
                 case 'guru':
                     return redirect('/dashboard/guru');

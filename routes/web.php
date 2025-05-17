@@ -18,15 +18,21 @@ Route::get('/nilai/rekap/export/word', [NilaiController::class, 'exportWord'])->
 Route::get('/bantuan', [App\Http\Controllers\BantuanController::class, 'index'])->name('bantuan.index');
 
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLoginForm']);
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::view('/dashboard/admin', 'dashboard.admin');
+});
+
+Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::view('/dashboard/guru', 'dashboard.guru');
+});
+
+Route::middleware(['auth', 'role:murid'])->group(function () {
     Route::view('/dashboard/murid', 'dashboard.murid');
 });
 
@@ -70,3 +76,48 @@ Route::get('nilai/{nilai}', [NilaiController::class, 'show'])->name('nilai.show'
 Route::get('nilai/{nilai}/edit', [NilaiController::class, 'edit'])->name('nilai.edit');
 Route::put('nilai/{nilai}', [NilaiController::class, 'update'])->name('nilai.update');
 Route::delete('nilai/{nilai}', [NilaiController::class, 'destroy'])->name('nilai.destroy');
+
+
+
+
+
+
+
+
+
+
+// Route::redirect('/', '/login');
+
+// Route::get('/nilai/rekap', [NilaiController::class, 'rekap'])->name('nilai.rekap');
+// Route::get('/nilai/rekap/export/pdf', [NilaiController::class, 'exportPdf'])->name('nilai.rekap.pdf');
+// Route::get('/nilai/rekap/export/excel', [NilaiController::class, 'exportExcel'])->name('nilai.rekap.excel');
+// Route::get('/nilai/rekap/export/word', [NilaiController::class, 'exportWord'])->name('nilai.rekap.word');
+
+// Route::get('/bantuan', [BantuanController::class, 'index'])->name('bantuan.index');
+
+// Route::middleware('guest')->group(function () {
+//     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+//     Route::post('/login', [AuthController::class, 'login']);
+// });
+
+// Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Route::middleware(['auth', 'role:admin'])->group(function () {
+//     Route::view('/dashboard/admin', 'dashboard.admin');
+
+//     Route::resource('user', UserController::class);
+// });
+
+// Route::middleware(['auth', 'role:guru'])->group(function () {
+//     Route::view('/dashboard/guru', 'dashboard.guru');
+
+//     Route::resource('mata-pelajaran', MataPelajaranController::class);
+// });
+
+// Route::middleware(['auth', 'role:murid'])->group(function () {
+//     Route::view('/dashboard/murid', 'dashboard.murid');
+
+//     Route::resource('guru', GuruController::class);
+//     Route::resource('murid', MuridController::class);
+//     Route::resource('nilai', NilaiController::class);
+// });
